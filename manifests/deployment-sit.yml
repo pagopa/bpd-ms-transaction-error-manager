@@ -1,0 +1,33 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: rtdmstransactionerrormanager
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rtdmstransactionerrormanager
+    spec:
+      containers:
+        - name: rtdmstransactionerrormanager
+          image: cstarregistry.azurecr.io/rtdmstransactionerrormanager
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: postgres-credentials
+            - secretRef:
+                name: rtdmstransactionerrormanager
+            - configMapRef:
+                name: eventhub-logging
+            - configMapRef:
+                name: eventhub-common
+            - configMapRef:
+                name: rtdmstransactionerrormanager
+            - configMapRef:
+                name: jvm
+      hostAliases:
+        - hostnames:
+            - bpd-hub-dev.servicebus.windows.net
+          ip: 10.70.5.9

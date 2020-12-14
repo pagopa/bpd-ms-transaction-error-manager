@@ -1,0 +1,16 @@
+apiVersion : apps/v1beta1
+kind: Deployment
+metadata:
+  name: rtdmstransactionerrormanager
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rtdmstransactionerrormanager
+    spec:
+      containers:
+        - name: bpdmspaymentinstrument 
+          image: cstarregistry.azurecr.io/rtdmstransactionerrormanager
+          ports:
+          - containerPort: 8080

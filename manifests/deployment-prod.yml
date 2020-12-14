@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rtdmstransactionerrormanager
+spec:
+  replicas: 1  
+  selector:
+    matchLabels:
+      app: rtdmstransactionerrormanager
+  template:
+    metadata:
+      labels:
+        app: rtdmstransactionerrormanager
+    spec:
+      containers:
+        - name: rtdmstransactionerrormanager
+          image: cstarprodregistry.azurecr.io/rtdmstransactionerrormanager
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: postgres-credentials
+            - secretRef:
+                name: rtdmstransactionerrormanager
+            - configMapRef:
+                name: eventhub-logging
+            - configMapRef:
+                name: eventhub-common
+            - configMapRef:
+                name: rtdmstransactionerrormanager
+            - configMapRef:
+                name: jvm
+      hostAliases:
+        - hostnames:
+            - u87cstarprod.servicebus.windows.net
+          ip: 10.70.132.4
