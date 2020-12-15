@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConf
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication(exclude = {ErrorMvcAutoConfiguration.class, SessionAutoConfiguration.class})
-@ComponentScan(basePackages = {"eu.sia.meda", "it.gov.pagopa.rtd"})
+@ComponentScan(basePackages = {"eu.sia.meda", "it.gov.pagopa.bpd"})
 public class BpdTransactionErrorManagerApplication {
 
     public static void main(String[] args) {

@@ -2,7 +2,6 @@ package it.gov.pagopa.bpd.transaction_error_manager.command;
 
 import eu.sia.meda.core.command.BaseCommand;
 import it.gov.pagopa.bpd.transaction_error_manager.connector.jpa.model.TransactionRecord;
-import it.gov.pagopa.bpd.transaction_error_manager.model.TransactionCommandModel;
 import it.gov.pagopa.bpd.transaction_error_manager.model.constants.TransactionRecordConstants;
 import it.gov.pagopa.bpd.transaction_error_manager.service.BpdCashbackTransactionPublisherService;
 import it.gov.pagopa.bpd.transaction_error_manager.service.RtdTransactionPublisherService;
@@ -29,7 +28,7 @@ import java.util.List;
 @Component
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @Slf4j
-class SubmitFlaggedRecordsCommandImpl extends BaseCommand<Boolean> implements SaveTransactionRecordCommand {
+class SubmitFlaggedRecordsCommandImpl extends BaseCommand<Boolean> implements SubmitFlaggedRecordsCommand {
 
     private TransactionRecordService transactionRecordService;
     private RtdTransactionPublisherService rtdTransactionPublisherService;
@@ -102,6 +101,11 @@ class SubmitFlaggedRecordsCommandImpl extends BaseCommand<Boolean> implements Sa
             throw e;
         }
 
+    }
+
+    @Autowired
+    public void setTransactionMapper(TransactionMapper transactionMapper) {
+        this.transactionMapper = transactionMapper;
     }
 
     @Autowired

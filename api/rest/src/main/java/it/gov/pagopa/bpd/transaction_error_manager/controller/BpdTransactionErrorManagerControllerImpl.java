@@ -2,6 +2,7 @@ package it.gov.pagopa.bpd.transaction_error_manager.controller;
 
 import eu.sia.meda.core.controller.StatelessController;
 import it.gov.pagopa.bpd.transaction_error_manager.command.SaveTransactionRecordCommand;
+import it.gov.pagopa.bpd.transaction_error_manager.command.SubmitFlaggedRecordsCommand;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,8 +22,8 @@ class BpdTransactionErrorManagerControllerImpl extends StatelessController imple
 
     @Override
     public void resubmitTransactions() throws Exception {
-        SaveTransactionRecordCommand command =
-                beanFactory.getBean(SaveTransactionRecordCommand.class);
+        SubmitFlaggedRecordsCommand command =
+                beanFactory.getBean(SubmitFlaggedRecordsCommand.class);
         command.execute();
     }
 }
