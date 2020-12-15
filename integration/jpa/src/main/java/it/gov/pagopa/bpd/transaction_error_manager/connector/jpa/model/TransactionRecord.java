@@ -19,6 +19,7 @@ import java.time.OffsetDateTime;
 public class TransactionRecord extends BaseEntity {
 
     @Id
+    @Column(name = "record_id_s")
     String recordId;
 
     @Column(name = "id_trx_acquirer_s")
