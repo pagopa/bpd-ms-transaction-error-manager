@@ -92,7 +92,7 @@ public class TransactionRecord extends BaseEntity {
     @Column(name="exception_message_s")
     String exceptionMessage;
 
-    @Column(name="last_resubmit_date")
+    @Column(name="last_resubmit_date_t")
     OffsetDateTime lastResubmitDate;
 
     @Column(name="to_resubmit_b")

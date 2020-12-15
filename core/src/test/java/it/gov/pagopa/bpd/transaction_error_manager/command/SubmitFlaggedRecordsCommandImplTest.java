@@ -3,6 +3,7 @@ package it.gov.pagopa.bpd.transaction_error_manager.command;
 import eu.sia.meda.BaseTest;
 import it.gov.pagopa.bpd.transaction_error_manager.connector.jpa.model.TransactionRecord;
 import it.gov.pagopa.bpd.transaction_error_manager.publisher.model.Transaction;
+import it.gov.pagopa.bpd.transaction_error_manager.service.BpdCashbackTransactionPublisherService;
 import it.gov.pagopa.bpd.transaction_error_manager.service.BpdTransactionPublisherService;
 import it.gov.pagopa.bpd.transaction_error_manager.service.RtdTransactionPublisherService;
 import it.gov.pagopa.bpd.transaction_error_manager.service.TransactionRecordService;
@@ -32,6 +33,9 @@ public class SubmitFlaggedRecordsCommandImplTest extends BaseTest {
     @Mock
     BpdTransactionPublisherService bpdTransactionPublisherService;
 
+    @Mock
+    BpdCashbackTransactionPublisherService bpdCashbackTransactionPublisherService;
+
     @Spy
     TransactionMapper transactionMapperSpy;
 
@@ -56,6 +60,7 @@ public class SubmitFlaggedRecordsCommandImplTest extends BaseTest {
                 transactionRecordService,
                 rtdTransactionPublisherService,
                 bpdTransactionPublisherService,
+                bpdCashbackTransactionPublisherService,
                 transactionMapperSpy);
         Boolean executed = saveTransactionCommand.doExecute();
         Assert.assertTrue(executed);
@@ -73,6 +78,7 @@ public class SubmitFlaggedRecordsCommandImplTest extends BaseTest {
                 transactionRecordService,
                 rtdTransactionPublisherService,
                 bpdTransactionPublisherService,
+                bpdCashbackTransactionPublisherService,
                 transactionMapperSpy);
         Boolean executed = saveTransactionCommand.doExecute();
         Assert.assertTrue(executed);

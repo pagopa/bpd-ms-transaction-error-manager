@@ -20,7 +20,7 @@ public class TransactionRecordConstants {
                 "bpd-trx");
         originListenerToTopic.put(
                 "it.gov.pagopa.bpd.winning_transaction.listener.OnTransactionSaveRequestListener",
-                "bpd-trx");
+                "bpd-trx-cashback");
     }
 
 }

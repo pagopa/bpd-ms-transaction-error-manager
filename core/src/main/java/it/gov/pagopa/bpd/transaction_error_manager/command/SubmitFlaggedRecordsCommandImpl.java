@@ -4,6 +4,7 @@ import eu.sia.meda.core.command.BaseCommand;
 import it.gov.pagopa.bpd.transaction_error_manager.connector.jpa.model.TransactionRecord;
 import it.gov.pagopa.bpd.transaction_error_manager.model.TransactionCommandModel;
 import it.gov.pagopa.bpd.transaction_error_manager.model.constants.TransactionRecordConstants;
+import it.gov.pagopa.bpd.transaction_error_manager.service.BpdCashbackTransactionPublisherService;
 import it.gov.pagopa.bpd.transaction_error_manager.service.RtdTransactionPublisherService;
 import it.gov.pagopa.bpd.transaction_error_manager.service.TransactionRecordService;
 import it.gov.pagopa.bpd.transaction_error_manager.service.mapper.TransactionMapper;
@@ -33,6 +34,7 @@ class SubmitFlaggedRecordsCommandImpl extends BaseCommand<Boolean> implements Sa
     private TransactionRecordService transactionRecordService;
     private RtdTransactionPublisherService rtdTransactionPublisherService;
     private BpdTransactionPublisherService bpdTransactionPublisherService;
+    private BpdCashbackTransactionPublisherService bpdCashbackTransactionPublisherService;
     private TransactionMapper transactionMapper;
 
 
@@ -42,6 +44,7 @@ class SubmitFlaggedRecordsCommandImpl extends BaseCommand<Boolean> implements Sa
             TransactionRecordService transactionRecordService,
             RtdTransactionPublisherService rtdTransactionPublisherService,
             BpdTransactionPublisherService bpdTransactionPublisherService,
+            BpdCashbackTransactionPublisherService bpdCashbackTransactionPublisherService,
             TransactionMapper transactionMapper) {
         this.transactionRecordService = transactionRecordService;
         this.rtdTransactionPublisherService = rtdTransactionPublisherService;
@@ -82,6 +85,10 @@ class SubmitFlaggedRecordsCommandImpl extends BaseCommand<Boolean> implements Sa
                    case "rtd-trx":
                        rtdTransactionPublisherService.publishRtdTransactionEvent(transaction, recordHeaders);
                        break;
+                   case "bpd-trx-cashback":
+                       bpdCashbackTransactionPublisherService
+                               .publishBpdCashbackTransactionEvent(transaction, recordHeaders);
+                       break;
                }
 
                transactionRecord.setToResubmit(false);
@@ -115,5 +122,10 @@ class SubmitFlaggedRecordsCommandImpl extends BaseCommand<Boolean> implements Sa
         this.bpdTransactionPublisherService = bpdTransactionPublisherService;
     }
 
+    @Autowired
+    public void setBpdCashbackTransactionPublisherService(
+            BpdCashbackTransactionPublisherService bpdCashbackTransactionPublisherService) {
+        this.bpdCashbackTransactionPublisherService = bpdCashbackTransactionPublisherService;
+    }
 
 }

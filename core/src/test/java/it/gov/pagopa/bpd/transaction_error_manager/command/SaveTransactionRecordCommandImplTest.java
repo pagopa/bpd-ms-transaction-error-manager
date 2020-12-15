@@ -114,7 +114,7 @@ public class SaveTransactionRecordCommandImplTest extends BaseTest {
         Assert.assertNotNull(argument.getValue().getRecordId());
         Assert.assertEquals(argument.getValue().getExceptionMessage(),"test");
         Assert.assertEquals(argument.getValue().getToResubmit(),false);
-        Assert.assertEquals(argument.getValue().getOriginTopic(),"bpd-trx");
+        Assert.assertEquals(argument.getValue().getOriginTopic(),"bpd-trx-cashback");
     }
 
 
