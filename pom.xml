@@ -8,8 +8,7 @@
         <artifactId>bpd-ms-starter-parent</artifactId>
     </parent>
 
-    <groupId>it.gov.pagopa.rtd.ms</groupId>
-    <artifactId>rtd-ms-transaction-error-manager</artifactId>
+    <artifactId>bpd-ms-transaction-error-manager</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -20,28 +19,28 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>it.gov.pagopa.rtd.ms.transaction-error-manager.integration</groupId>
-                <artifactId>rtd-ms-transaction-error-manager-integration-jpa</artifactId>
+                <groupId>it.gov.pagopa.bpd.ms.transaction-error-manager.integration</groupId>
+                <artifactId>bpd-ms-transaction-error-manager-integration-jpa</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>it.gov.pagopa.rtd.ms.transaction-error-manager.integration</groupId>
-                <artifactId>rtd-ms-transaction-error-manager-integration-event</artifactId>
+                <groupId>it.gov.pagopa.bpd.ms.transaction-error-manager.integration</groupId>
+                <artifactId>bpd-ms-transaction-error-manager-integration-event</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>it.gov.pagopa.rtd.ms.transaction-error-manager</groupId>
-                <artifactId>rtd-ms-transaction-error-manager-core</artifactId>
+                <groupId>it.gov.pagopa.bpd.ms.transaction-error-manager</groupId>
+                <artifactId>bpd-ms-transaction-error-manager-core</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>it.gov.pagopa.rtd.ms.transaction-error-manager.api</groupId>
-                <artifactId>rtd-ms-transaction-error-manager-api-rest</artifactId>
+                <groupId>it.gov.pagopa.bpd.ms.transaction-error-manager.api</groupId>
+                <artifactId>bpd-ms-transaction-error-manager-api-rest</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>it.gov.pagopa.rtd.ms.transaction-error-manager.api</groupId>
-                <artifactId>rtd-ms-transaction-error-manager-api-event</artifactId>
+                <groupId>it.gov.pagopa.bpd.ms.transaction-error-manager.api</groupId>
+                <artifactId>bpd-ms-transaction-error-manager-api-event</artifactId>
                 <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
@@ -120,7 +119,7 @@
     </repositories>
 
     <scm>
-        <developerConnection>scm:git:https://github.com/pagopa/rtd-ms-transaction-error-manager.git</developerConnection>
+        <developerConnection>scm:git:https://github.com/pagopa/bpd-ms-transaction-error-manager.git</developerConnection>
       <tag>HEAD</tag>
   </scm>
 

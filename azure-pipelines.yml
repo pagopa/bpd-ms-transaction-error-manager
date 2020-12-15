@@ -28,7 +28,7 @@ variables:
   vmImageNameDefault: 'ubuntu-latest'
 
   # Image Repository Name
-  imageRepository: 'rtdmstransactionerrormanager'
+  imageRepository: 'bpdmstransactionerrormanager'
 
   isToDeploy: $[and(ne(variables['Build.Reason'], 'PullRequest'), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release')))]
   isSIT: $[eq(variables['Build.SourceBranch'], 'refs/heads/release/st')]
