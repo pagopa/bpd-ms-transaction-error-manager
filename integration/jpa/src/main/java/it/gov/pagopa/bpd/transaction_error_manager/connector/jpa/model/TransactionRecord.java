@@ -15,7 +15,7 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"recordId"}, callSuper = false)
-@Table(name = "rtd_transaction_record")
+@Table(name = "bpd_transaction_record")
 public class TransactionRecord extends BaseEntity {
 
     @Id
