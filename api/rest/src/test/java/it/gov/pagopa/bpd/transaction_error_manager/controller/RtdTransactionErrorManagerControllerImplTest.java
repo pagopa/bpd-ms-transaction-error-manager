@@ -1,6 +1,7 @@
 package it.gov.pagopa.bpd.transaction_error_manager.controller;
 
 import it.gov.pagopa.bpd.transaction_error_manager.command.SaveTransactionRecordCommand;
+import it.gov.pagopa.bpd.transaction_error_manager.command.SubmitFlaggedRecordsCommand;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +26,7 @@ public class RtdTransactionErrorManagerControllerImplTest {
     private final String BASE_URL = "/bpd/transaction-error-manager";
 
     @MockBean
-    private SaveTransactionRecordCommand saveTransactionRecordCommand;
+    private SubmitFlaggedRecordsCommand saveTransactionRecordCommand;
 
     @Autowired
     MockMvc mockMvc;
