@@ -1,6 +1,7 @@
 package it.gov.pagopa.bpd.transaction_error_manager.command;
 
 import eu.sia.meda.core.command.BaseCommand;
+import eu.sia.meda.core.interceptors.BaseContextHolder;
 import it.gov.pagopa.bpd.transaction_error_manager.connector.jpa.model.TransactionRecord;
 import it.gov.pagopa.bpd.transaction_error_manager.model.constants.TransactionRecordConstants;
 import it.gov.pagopa.bpd.transaction_error_manager.service.BpdCashbackTransactionPublisherService;
@@ -69,14 +70,18 @@ class SubmitFlaggedRecordsCommandImpl extends BaseCommand<Boolean> implements Su
            for (TransactionRecord transactionRecord : transactionRecordList) {
                Transaction transaction = transactionMapper.mapTransaction(transactionRecord);
                RecordHeaders recordHeaders = new RecordHeaders();
-               recordHeaders.add(TransactionRecordConstants.REQUEST_ID_HEADER,
-                       transactionRecord.getOriginRequestId() == null ?
-                               "Resubmitted".getBytes() :
-                               "Resubmitted;".concat(transactionRecord.getOriginRequestId()).getBytes());
+               String requestId =  transactionRecord.getOriginRequestId() == null ?
+                       "Resubmitted" :
+                       "Resubmitted;".concat(transactionRecord.getOriginRequestId());
+               recordHeaders.add(TransactionRecordConstants.REQUEST_ID_HEADER, requestId.getBytes());
+               BaseContextHolder.getApplicationContext().setRequestId(requestId);
+               recordHeaders.add(TransactionRecordConstants.USER_ID_HEADER,
+                       "rtd-ms-transaction-error-manager".getBytes());
                recordHeaders.add(TransactionRecordConstants.LISTENER_HEADER,
                        transactionRecord.getOriginListener() == null ?
                                null :
                                transactionRecord.getOriginListener().getBytes());
+
                switch (transactionRecord.getOriginTopic()) {
                    case "bpd-trx":
                         bpdTransactionPublisherService.publishBpdTransactionEvent(transaction, recordHeaders);

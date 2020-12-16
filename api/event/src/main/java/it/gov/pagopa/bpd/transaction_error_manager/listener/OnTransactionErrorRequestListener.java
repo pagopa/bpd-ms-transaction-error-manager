@@ -56,6 +56,8 @@ public class OnTransactionErrorRequestListener extends BaseConsumerAwareEventLis
 
         try {
 
+
+
             if (log.isDebugEnabled()) {
                 log.debug("Processing new request on inbound queue");
             }

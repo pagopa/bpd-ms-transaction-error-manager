@@ -8,6 +8,7 @@ public class TransactionRecordConstants {
     public static String EXCEPTION_HEADER = "ERROR_DESC";
     public static String LISTENER_HEADER = "LISTENER";
     public static String REQUEST_ID_HEADER = "x-request-id";
+    public static String USER_ID_HEADER = "x-user-id";
 
     public static Map<String, String> originListenerToTopic;
     static {
