@@ -33,4 +33,4 @@ meda:
 
 logging:
   level:
-    it.gov.pagopa.bpd.transaction_error_manager: ${LOG_LEVEL_RTD_TRANSACTION_ERROR_MANAGER:DEBUG}
+    it.gov.pagopa.bpd.transaction_error_manager: ${LOG_LEVEL_BPD_TRANSACTION_ERROR_MANAGER:DEBUG}
