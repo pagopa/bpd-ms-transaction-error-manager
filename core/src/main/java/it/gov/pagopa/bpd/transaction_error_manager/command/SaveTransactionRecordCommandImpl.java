@@ -15,6 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 /**
@@ -62,6 +66,9 @@ class SaveTransactionRecordCommandImpl extends BaseCommand<Boolean> implements S
 
         try {
 
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss.SSSXXXXX");
+            OffsetDateTime execStart = OffsetDateTime.now();
+
             TransactionRecord transactionRecord =
                     transactionMapper.mapTransactionRecord(transaction);
             transactionRecord.setToResubmit(false);
@@ -80,9 +87,32 @@ class SaveTransactionRecordCommandImpl extends BaseCommand<Boolean> implements S
             transactionRecord.setRecordId(UUID.randomUUID().toString());
             transactionRecordService.saveTransactionRecord(transactionRecord);
 
+            OffsetDateTime end_exec = OffsetDateTime.now();
+            log.info("Executed SaveTransactionRecordCommandImpl for transaction: {}, {}, {} " +
+                            "- Started at {}, Ended at {} - Total exec time: {}",
+                    transaction.getIdTrxAcquirer(),
+                    transaction.getAcquirerCode(),
+                    transaction.getTrxDate(),
+                    dateTimeFormatter.format(execStart),
+                    dateTimeFormatter.format(end_exec),
+                    ChronoUnit.MILLIS.between(execStart, end_exec));
+
             return true;
 
         } catch (Exception e) {
+
+            if (transaction != null) {
+
+                if (logger.isErrorEnabled()) {
+                    logger.error("Error occured while attempting to record the transaction: " +
+                            transaction.getIdTrxAcquirer() + ", " +
+                            transaction.getAcquirerCode() + ", " +
+                            transaction.getTrxDate());
+                    logger.error(e.getMessage(), e);
+                }
+
+            }
+
             throw e;
         }
 
