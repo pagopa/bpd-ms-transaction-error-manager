@@ -19,6 +19,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 /**
@@ -66,6 +68,9 @@ class SubmitFlaggedRecordsCommandImpl extends BaseCommand<Boolean> implements Su
 
         try {
 
+           DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss.SSSXXXXX");
+           OffsetDateTime execStart = OffsetDateTime.now();
+
            List<TransactionRecord> transactionRecordList = transactionRecordService.findRecordsToResubmit();
            for (TransactionRecord transactionRecord : transactionRecordList) {
                Transaction transaction = transactionMapper.mapTransaction(transactionRecord);
@@ -98,11 +103,25 @@ class SubmitFlaggedRecordsCommandImpl extends BaseCommand<Boolean> implements Su
                transactionRecord.setToResubmit(false);
                transactionRecord.setLastResubmitDate(OffsetDateTime.now());
                transactionRecordService.saveTransactionRecord(transactionRecord);
+
            }
+
+            OffsetDateTime end_exec = OffsetDateTime.now();
+            log.info("Executed SubmitFlaggedRecordsCommand for transaction" +
+                            "- Started at {}, Ended at {} - Total exec time: {}",
+                    dateTimeFormatter.format(execStart),
+                    dateTimeFormatter.format(end_exec),
+                    ChronoUnit.MILLIS.between(execStart, end_exec));
 
            return true;
 
         } catch (Exception e) {
+
+            if (logger.isErrorEnabled()) {
+                logger.error("Error occurred while attempting to submit flagged records");
+                logger.error(e.getMessage(), e);
+            }
+
             throw e;
         }
 
