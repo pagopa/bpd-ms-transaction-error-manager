@@ -17,7 +17,8 @@ import java.nio.charset.StandardCharsets;
 @Service
 @Primary
 public class HeaderAwareRequestTransformer<INPUT> implements IEventRequestTransformer<INPUT, INPUT> {
-    private static final Logger logger = LoggerUtils.getLogger(eu.sia.meda.event.transformer.SimpleEventRequestTransformer.class);
+    private static final Logger logger = LoggerUtils.getLogger(
+            eu.sia.meda.event.transformer.SimpleEventRequestTransformer.class);
     private final ObjectMapper objectMapper;
 
     @Autowired
@@ -29,7 +30,7 @@ public class HeaderAwareRequestTransformer<INPUT> implements IEventRequestTransf
         try {
             EventRequest<INPUT> request = new EventRequest();
             if (payload instanceof byte[]) {
-                request.setPayload((byte[])((byte[])payload));
+                request.setPayload((byte[])payload);
             } else {
                 request.setPayload(this.objectMapper.writeValueAsString(payload).getBytes(StandardCharsets.UTF_8));
             }

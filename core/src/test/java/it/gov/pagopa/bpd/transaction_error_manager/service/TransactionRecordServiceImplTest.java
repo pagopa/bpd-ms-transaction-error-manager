@@ -19,6 +19,7 @@ public class TransactionRecordServiceImplTest extends BaseTest {
 
     @Mock
     private TransactionRecordDAO transactionRecordDAOMock;
+
     private TransactionRecordService transactionRecordService;
 
     @Rule
