@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>bpd-ms-transaction-error-manager</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>CEN-156-rc1</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -21,27 +21,27 @@
             <dependency>
                 <groupId>it.gov.pagopa.bpd.ms.transaction-error-manager.integration</groupId>
                 <artifactId>bpd-ms-transaction-error-manager-integration-jpa</artifactId>
-                <version>1.0.1-SNAPSHOT</version>
+                <version>CEN-156-rc1</version>
             </dependency>
             <dependency>
                 <groupId>it.gov.pagopa.bpd.ms.transaction-error-manager.integration</groupId>
                 <artifactId>bpd-ms-transaction-error-manager-integration-event</artifactId>
-                <version>1.0.1-SNAPSHOT</version>
+                <version>CEN-156-rc1</version>
             </dependency>
             <dependency>
                 <groupId>it.gov.pagopa.bpd.ms.transaction-error-manager</groupId>
                 <artifactId>bpd-ms-transaction-error-manager-core</artifactId>
-                <version>1.0.1-SNAPSHOT</version>
+                <version>CEN-156-rc1</version>
             </dependency>
             <dependency>
                 <groupId>it.gov.pagopa.bpd.ms.transaction-error-manager.api</groupId>
                 <artifactId>bpd-ms-transaction-error-manager-api-rest</artifactId>
-                <version>1.0.1-SNAPSHOT</version>
+                <version>CEN-156-rc1</version>
             </dependency>
             <dependency>
                 <groupId>it.gov.pagopa.bpd.ms.transaction-error-manager.api</groupId>
                 <artifactId>bpd-ms-transaction-error-manager-api-event</artifactId>
-                <version>1.0.1-SNAPSHOT</version>
+                <version>CEN-156-rc1</version>
             </dependency>
             <dependency>
                 <groupId>it.gov.pagopa.bpd.commons.api</groupId>
