@@ -1,6 +1,7 @@
 package it.gov.pagopa.bpd.transaction_error_manager.command;
 
 import eu.sia.meda.BaseTest;
+import eu.sia.meda.async.util.AsyncUtils;
 import it.gov.pagopa.bpd.transaction_error_manager.connector.jpa.model.TransactionRecord;
 import it.gov.pagopa.bpd.transaction_error_manager.publisher.model.Transaction;
 import it.gov.pagopa.bpd.transaction_error_manager.service.BpdCashbackTransactionPublisherService;
@@ -17,10 +18,11 @@ import org.mockito.BDDMockito;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
-
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.Collections;
+
+import static org.mockito.MockitoAnnotations.initMocks;
 
 public class SubmitFlaggedRecordsCommandImplTest extends BaseTest {
 
@@ -39,16 +41,21 @@ public class SubmitFlaggedRecordsCommandImplTest extends BaseTest {
     @Spy
     TransactionMapper transactionMapperSpy;
 
+    @Spy
+    AsyncUtils asyncUtilsSpy;
+
     @Rule
     public ExpectedException exceptionRule = ExpectedException.none();
 
     @Before
     public void initTest() {
+        initMocks(this);
         Mockito.reset(
                 transactionRecordService,
                 rtdTransactionPublisherService,
                 bpdTransactionPublisherService,
-                transactionMapperSpy);
+                transactionMapperSpy,
+                asyncUtilsSpy);
     }
 
     @Test
@@ -62,6 +69,7 @@ public class SubmitFlaggedRecordsCommandImplTest extends BaseTest {
                 bpdTransactionPublisherService,
                 bpdCashbackTransactionPublisherService,
                 transactionMapperSpy);
+        saveTransactionCommand.setAsyncUtils(asyncUtilsSpy);
         Boolean executed = saveTransactionCommand.doExecute();
         Assert.assertTrue(executed);
         BDDMockito.verify(rtdTransactionPublisherService)
@@ -80,6 +88,7 @@ public class SubmitFlaggedRecordsCommandImplTest extends BaseTest {
                 bpdTransactionPublisherService,
                 bpdCashbackTransactionPublisherService,
                 transactionMapperSpy);
+        saveTransactionCommand.setAsyncUtils(asyncUtilsSpy);
         Boolean executed = saveTransactionCommand.doExecute();
         Assert.assertTrue(executed);
         BDDMockito.verify(bpdTransactionPublisherService)
