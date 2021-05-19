@@ -129,7 +129,7 @@ class SubmitFlaggedRecordsCommandImpl extends BaseCommand<Boolean> implements Su
 
                     });
 
-                }
+               }
 
                 OffsetDateTime end_exec = OffsetDateTime.now();
                 log.info("Executed SubmitFlaggedRecordsCommand for transaction" +
