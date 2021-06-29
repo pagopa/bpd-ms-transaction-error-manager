@@ -15,6 +15,7 @@ spec:
       containers:
         - name: bpdmstransactionerrormanager
           image: cstardacr.azurecr.io/bpdmstransactionerrormanager
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           envFrom:
