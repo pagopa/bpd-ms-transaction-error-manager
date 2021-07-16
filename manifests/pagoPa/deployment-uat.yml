@@ -14,12 +14,15 @@ spec:
     spec:
       containers:
         - name: bpdmstransactionerrormanager
-          image: cstaruatregistry.azurecr.io/bpdmstransactionerrormanager
+          image: cstaruacr.azurecr.io/bpdmstransactionerrormanager
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           envFrom:
             - secretRef:
                 name: postgres-credentials
+            - secretRef:
+                name: application-insights
             - secretRef:
                 name: bpdmstransactionerrormanager
             - configMapRef:
@@ -30,7 +33,4 @@ spec:
                 name: bpdmstransactionerrormanager
             - configMapRef:
                 name: jvm
-      hostAliases:
-        - hostnames:
-            - bpd-event-uat.servicebus.windows.net
-          ip: 10.70.67.5
+
