@@ -8,7 +8,8 @@ trigger:
       - master
       - develop
       - release/*
-      - features/*
+      - feature/*
+      - hotfix/*
   paths:
     include:
       - api/*
@@ -31,16 +32,16 @@ variables:
   imageRepository: 'bpdmstransactionerrormanager'
 
   isToDeploy: $[and(ne(variables['Build.Reason'], 'PullRequest'), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release')))]
-  isSIT: $[eq(variables['Build.SourceBranch'], 'refs/heads/release/st')]
-  isUAT: $[eq(variables['Build.SourceBranch'], 'refs/heads/release/uat')]
+  isSIT: $[startsWith(variables['Build.SourceBranch'], 'refs/heads/release/st')]
+  isUAT: $[startsWith(variables['Build.SourceBranch'], 'refs/heads/release/uat')]
   isPROD: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
 
-  ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/release/st') }}:
+  ${{ if startsWith(variables['Build.SourceBranch'], 'refs/heads/release/st') }}:
     dockerRegistryServiceConnection: 'cstarregistry-connection'
     containerRegistry: 'cstarregistry.azurecr.io'
     deployment: deployment-sit
     imagePullSecret: 'cstarregistry-auth'
-  ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/release/uat') }}:
+  ${{ if startsWith(variables['Build.SourceBranch'], 'refs/heads/release/uat') }}:
     dockerRegistryServiceConnection: 'cstaruatregistry-connection'
     containerRegistry: 'cstaruatregistry.azurecr.io'
     deployment: deployment-uat
@@ -50,7 +51,7 @@ variables:
     containerRegistry: 'cstarprodregistry.azurecr.io'
     deployment: deployment-prod
     imagePullSecret: 'cstarprodregistry-auth'
-  ${{ if and(ne(variables['Build.SourceBranch'], 'refs/heads/release/st'), ne(variables['Build.SourceBranch'], 'refs/heads/release/uat'), ne(variables['Build.SourceBranch'], 'refs/heads/master')) }}:
+  ${{ if and(not(startsWith(variables['Build.SourceBranch'], 'refs/heads/release')), ne(variables['Build.SourceBranch'], 'refs/heads/master')) }}:
     dockerRegistryServiceConnection: 'cstarregistry-connection'
 
 stages:
@@ -129,8 +130,8 @@ stages:
           - task: Maven@3
             inputs:
               mavenPomFile: 'pom.xml'
-              goals: 'deploy'
-              options: '-B -s $(settingsxml.secureFilePath) -DskipTests=true'
+              goals: 'package'
+              options: '-B -s $(settingsxml.secureFilePath) -DskipTests=false'
               javaHomeOption: 'JDKVersion'
               jdkVersionOption: '1.8'
               mavenVersionOption: 'Default'
@@ -212,7 +213,7 @@ stages:
             inputs:
               mavenPomFile: 'pom.xml'
               goals: 'package'
-              options: '-B -s $(settingsxml.secureFilePath) -DskipTests=true'
+              options: '-B -s $(settingsxml.secureFilePath) -DskipTests=false'
               javaHomeOption: 'JDKVersion'
               jdkVersionOption: '1.8'
               mavenVersionOption: 'Default'
@@ -293,7 +294,7 @@ stages:
             inputs:
               mavenPomFile: 'pom.xml'
               goals: 'deploy'
-              options: '-B -s $(settingsxml.secureFilePath) -DskipTests=true'
+              options: '-B -s $(settingsxml.secureFilePath) -DskipTests=false'
               javaHomeOption: 'JDKVersion'
               jdkVersionOption: '1.8'
               mavenVersionOption: 'Default'
